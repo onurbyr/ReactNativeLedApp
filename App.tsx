@@ -1,14 +1,15 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 import {RootSiblingParent} from 'react-native-root-siblings';
+import {NavigationContainer} from '@react-navigation/native';
+import Navigator from './src/screens/Navigator';
 
 const App = () => {
   return (
-    <RootSiblingParent>
-      <View>
-        <Text>App.tsx</Text>
-      </View>
-    </RootSiblingParent>
+    <NavigationContainer>
+      <RootSiblingParent>
+        <Navigator />
+      </RootSiblingParent>
+    </NavigationContainer>
   );
 };
 
