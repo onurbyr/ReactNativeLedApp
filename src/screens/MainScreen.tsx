@@ -5,14 +5,18 @@ import {ItemContainer} from '../components';
 import {Image, TouchableOpacity} from 'react-native';
 import {Slider} from '@miblanchard/react-native-slider';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from './Navigator';
 
-const MainScreen = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
+
+const MainScreen = ({navigation}: Props) => {
   const [brightness, setBrightness] = useState<any>(0);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topButtons}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ColorPicker')}>
           <ItemContainer style={styles.colorIpButtonContainer}>
             <Image
               style={styles.colorIpButton}
@@ -37,7 +41,7 @@ const MainScreen = () => {
           </ItemContainer>
         </TouchableOpacity>
       </View>
-      <View style={styles.sliderSection}>
+      <View style={styles.section}>
         <Text style={styles.sectionText}>Brightness</Text>
         <ItemContainer style={styles.sliderContainer}>
           <MaterialIcons name="brightness-low" size={20} color="white" />
@@ -50,6 +54,12 @@ const MainScreen = () => {
             containerStyle={styles.slider}
           />
           <MaterialIcons name="brightness-high" size={20} color="white" />
+        </ItemContainer>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionText}>Select Saved Colors</Text>
+        <ItemContainer style={styles.savedColorsMainContainer}>
+          <TouchableOpacity style={styles.savedColorsButton}></TouchableOpacity>
         </ItemContainer>
       </View>
     </SafeAreaView>
@@ -86,8 +96,8 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
   },
-  sliderSection: {
-    marginHorizontal: 40,
+  section: {
+    margin: 40,
   },
   sectionText: {
     color: colors.mainTextColor,
@@ -104,5 +114,17 @@ const styles = StyleSheet.create({
   slider: {
     flex: 1,
     marginHorizontal: 10,
+  },
+  savedColorsMainContainer: {
+    padding: 20,
+    borderRadius: 10,
+  },
+  savedColorsButton: {
+    backgroundColor: 'red',
+    width: 30,
+    height: 30,
+    borderWidth: 1,
+    borderColor: '#344055',
+    borderRadius: 5,
   },
 });
