@@ -5,7 +5,7 @@ import {ItemContainer, Input, Button} from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const IpAddress = () => {
-  const [text, onChangeText] = useState<string>('');
+  const [text, onChangeText] = useState<string>('192.168.x.x');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,8 +19,9 @@ const IpAddress = () => {
           />
         </ItemContainer>
         <Button
-          icon={<MaterialIcons name="link" size={20} color="343" />}
-          buttonColor="#dddddd"
+          icon={<MaterialIcons name="save" size={20} color="white" />}
+          containerStyle={styles.buttonStyle}
+          title="Kaydet"
         />
       </View>
     </SafeAreaView>
@@ -45,5 +46,8 @@ const styles = StyleSheet.create({
   },
   ipAddressContainer: {
     padding: 10,
+  },
+  buttonStyle: {
+    marginTop: 20,
   },
 });
