@@ -1,10 +1,12 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainScreen from './MainScreen';
+import IpAddress from './IpAddress';
 import ColorPicker from './ColorPicker';
 
 export type RootStackParamList = {
   MainScreen: undefined;
+  IpAddress: undefined;
   ColorPicker: undefined;
 };
 
@@ -17,6 +19,11 @@ const Navigator = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="MainScreen" component={MainScreen} />
+      <Stack.Screen
+        name="IpAddress"
+        component={IpAddress}
+        options={{animation: 'slide_from_bottom'}}
+      />
       <Stack.Screen
         name="ColorPicker"
         component={ColorPicker}

@@ -32,7 +32,7 @@ const MainScreen = ({navigation}: Props) => {
             />
           </ItemContainer>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('IpAddress')}>
           <ItemContainer style={styles.colorIpButtonContainer}>
             <Image
               style={styles.colorIpButton}
