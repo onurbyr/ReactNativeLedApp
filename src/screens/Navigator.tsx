@@ -17,7 +17,11 @@ const Navigator = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="MainScreen" component={MainScreen} />
-      <Stack.Screen name="ColorPicker" component={ColorPicker} />
+      <Stack.Screen
+        name="ColorPicker"
+        component={ColorPicker}
+        options={{animation: 'slide_from_bottom'}}
+      />
     </Stack.Navigator>
   );
 };

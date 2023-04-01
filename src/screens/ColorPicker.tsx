@@ -1,14 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import React from 'react';
+import {colors} from '../constants';
 
 const ColorPicker = () => {
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
       <Text>ColorPicker</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default ColorPicker;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.mainBackgroundColor,
+  },
+});
