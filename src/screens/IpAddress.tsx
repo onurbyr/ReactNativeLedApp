@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, SafeAreaView, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../constants';
-import {ItemContainer, Input} from '../components';
+import {ItemContainer, Input, Button} from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const IpAddress = () => {
@@ -10,14 +10,18 @@ const IpAddress = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
+        <Text style={styles.sectionText}>Ip Address</Text>
         <ItemContainer style={styles.ipAddressContainer}>
-          <Text>IpAddress</Text>
           <Input
             icon={<MaterialIcons name="link" size={20} color="white" />}
             onChangeText={onChangeText}
             value={text}
           />
         </ItemContainer>
+        <Button
+          icon={<MaterialIcons name="link" size={20} color="343" />}
+          buttonColor="#dddddd"
+        />
       </View>
     </SafeAreaView>
   );
@@ -33,6 +37,11 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+  },
+  sectionText: {
+    color: colors.mainTextColor,
+    marginBottom: 10,
+    fontSize: 18,
   },
   ipAddressContainer: {
     padding: 10,
