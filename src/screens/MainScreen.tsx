@@ -13,6 +13,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
 
 const MainScreen = ({navigation}: Props) => {
   const [brightness, setBrightness] = useState<any>(0);
+  const [onOffToggle, setOnOffToggle] = useState<boolean>(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,7 +26,11 @@ const MainScreen = ({navigation}: Props) => {
             />
           </ItemContainer>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setStatus('on')}>
+        <TouchableOpacity
+          onPress={() => {
+            setStatus(onOffToggle ? 'off' : 'on');
+            setOnOffToggle(!onOffToggle);
+          }}>
           <ItemContainer style={styles.onOffButtonContainer}>
             <Image
               style={styles.onOffButton}
