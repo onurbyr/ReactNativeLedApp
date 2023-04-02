@@ -4,8 +4,12 @@ import {colors} from '../constants';
 import {Input, Button} from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {getAsyncStorageData, setAsyncStorageData} from '../helpers';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from './Navigator';
 
-const IpAddress = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'IpAddress'>;
+
+const IpAddress = ({navigation}: Props) => {
   const [text, onChangeText] = useState<string>('192.168.x.x');
 
   useEffect(() => {
@@ -21,6 +25,7 @@ const IpAddress = () => {
 
   const onSavePress = async (): Promise<void> => {
     await setAsyncStorageData('@ipAddress', text);
+    navigation.navigate('MainScreen');
   };
 
   return (
