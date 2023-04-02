@@ -6,11 +6,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {getAsyncStorageData, setAsyncStorageData} from '../helpers';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './Navigator';
+import {setAxiosBaseURL} from '../api/axios';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'IpAddress'>;
 
 const IpAddress = ({navigation}: Props) => {
-  const [text, onChangeText] = useState<string>('192.168.x.x');
+  const [text, onChangeText] = useState<string>('http://192.168.x.x');
 
   useEffect(() => {
     setIpAddress();
@@ -25,6 +26,7 @@ const IpAddress = ({navigation}: Props) => {
 
   const onSavePress = async (): Promise<void> => {
     await setAsyncStorageData('@ipAddress', text);
+    setAxiosBaseURL(text);
     navigation.navigate('MainScreen');
   };
 

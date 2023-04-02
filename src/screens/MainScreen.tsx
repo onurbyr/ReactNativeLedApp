@@ -7,6 +7,7 @@ import {Slider} from '@miblanchard/react-native-slider';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './Navigator';
+import {setStatus} from '../api/requests';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
 
@@ -24,7 +25,7 @@ const MainScreen = ({navigation}: Props) => {
             />
           </ItemContainer>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setStatus('on')}>
           <ItemContainer style={styles.onOffButtonContainer}>
             <Image
               style={styles.onOffButton}

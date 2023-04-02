@@ -5,6 +5,7 @@ import IpAddress from './IpAddress';
 import ColorPicker from './ColorPicker';
 import {getAsyncStorageData} from '../helpers';
 import {LoadingScreen} from '../components';
+import {setAxiosBaseURL} from '../api/axios';
 
 export type RootStackParamList = {
   MainScreen: undefined;
@@ -25,6 +26,7 @@ const Navigator = () => {
   const checkIpAddress = async () => {
     const savedIpAddress = await getAsyncStorageData('@ipAddress');
     if (savedIpAddress) {
+      setAxiosBaseURL(savedIpAddress);
       setIsThereSavedIp(true);
     } else {
       setIsThereSavedIp(false);
