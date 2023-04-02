@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-root-toast';
 
 export const setAsyncStorageData = async (
   storage_Key: string,
@@ -6,6 +7,7 @@ export const setAsyncStorageData = async (
 ) => {
   try {
     await AsyncStorage.setItem(storage_Key, value);
+    Toast.show('Successfully Saved');
   } catch (e) {
     console.warn(e);
   }
