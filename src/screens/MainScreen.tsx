@@ -69,7 +69,10 @@ const MainScreen = ({navigation}: Props) => {
             <TouchableOpacity
               style={styles.savedColorsButton}></TouchableOpacity>
             <TouchableOpacity
-              style={[styles.savedColorsButton, styles.addSavedColorButton]}>
+              style={[styles.savedColorsButton, styles.addSavedColorButton]}
+              onPress={() =>
+                navigation.navigate('ColorScreen', {saveColor: true})
+              }>
               <MaterialIcons name="add" size={20} color="white" />
             </TouchableOpacity>
           </ItemContainer>

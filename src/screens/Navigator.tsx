@@ -10,7 +10,7 @@ import {setAxiosBaseURL} from '../api/axios';
 export type RootStackParamList = {
   MainScreen: undefined;
   IpAddress: undefined;
-  ColorScreen: undefined;
+  ColorScreen: {saveColor: boolean} | undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

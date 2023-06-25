@@ -1,18 +1,46 @@
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState} from 'react';
 import {colors} from '../constants';
 import ColorPicker from 'react-native-wheel-color-picker';
 import {convertToRGB} from '../helpers';
 import {setColor} from '../api/requests';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from './Navigator';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const ColorScreen = () => {
-  const onColorChange = (val: string) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'ColorScreen'>;
+
+const ColorScreen = ({route}: Props) => {
+  const [selectedColor, setSelectedColor] = useState<string>('#ffffff');
+
+  const onColorChangeComplete = (val: string) => {
+    setSelectedColor(val);
     const rgbVal = convertToRGB(val);
-    setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
+    if (!route.params?.saveColor) {
+      setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
+    }
   };
   return (
     <SafeAreaView style={styles.container}>
-      <ColorPicker onColorChange={onColorChange} />
+      <ColorPicker onColorChangeComplete={onColorChangeComplete} />
+      {route.params?.saveColor ? (
+        <View style={styles.selectedColorContainer}>
+          <Text style={styles.selectedColorText}>Selected Color:</Text>
+          <TouchableOpacity
+            style={[
+              styles.selectedColorButton,
+              {backgroundColor: selectedColor},
+            ]}>
+            <MaterialIcons name="check" size={20} color={'white'} />
+          </TouchableOpacity>
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };
@@ -24,5 +52,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.mainBackgroundColor,
     padding: 20,
+  },
+  selectedColorContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedColorText: {
+    color: colors.mainTextColor,
+    marginRight: 10,
+  },
+  selectedColorButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#8a8180',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
