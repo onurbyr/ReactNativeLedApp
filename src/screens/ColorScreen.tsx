@@ -26,9 +26,7 @@ const ColorScreen = ({navigation, route}: Props) => {
   const onColorChangeComplete = (val: string) => {
     setSelectedColor(val);
     const rgbVal = convertToRGB(val);
-    if (!route.params?.saveColor) {
-      setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
-    }
+    setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
   };
 
   const saveColorToStorage = async () => {

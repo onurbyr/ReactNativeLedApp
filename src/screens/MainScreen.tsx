@@ -7,9 +7,14 @@ import {Slider} from '@miblanchard/react-native-slider';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './Navigator';
-import {setStatus} from '../api/requests';
+import {setStatus, setColor} from '../api/requests';
 import {useFocusEffect} from '@react-navigation/native';
-import {getObjectAsyncStorageData} from '../helpers';
+import {
+  getObjectAsyncStorageData,
+  setObjectAsyncStorageData,
+  asyncAlert,
+  convertToRGB,
+} from '../helpers';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
 
@@ -26,7 +31,30 @@ const MainScreen = ({navigation}: Props) => {
 
   const handleSavedColors = async () => {
     const savedColorsData = await getObjectAsyncStorageData('savedColors');
-    savedColorsData?.length && setSavedColors(savedColorsData);
+    savedColorsData && setSavedColors(savedColorsData);
+  };
+
+  const deleteColor = async (item: string) => {
+    const userResponse = await asyncAlert(
+      'Warning',
+      'Are you sure you want to delete this color?',
+    );
+    if (userResponse === 'YES') {
+      const savedColorsData = await getObjectAsyncStorageData('savedColors');
+      if (savedColorsData?.length) {
+        const foundIndex = savedColorsData.findIndex((i: string) => i === item);
+        if (foundIndex > -1) {
+          savedColorsData.splice(foundIndex, 1);
+          await setObjectAsyncStorageData('savedColors', savedColorsData);
+          handleSavedColors();
+        }
+      }
+    }
+  };
+
+  const setDeviceColor = (item: string) => {
+    const rgbVal = convertToRGB(item);
+    setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
   };
 
   return (
@@ -84,6 +112,8 @@ const MainScreen = ({navigation}: Props) => {
               <TouchableOpacity
                 style={[styles.savedColorsButton, {backgroundColor: item}]}
                 key={index}
+                onPress={() => setDeviceColor(item)}
+                onLongPress={() => deleteColor(item)}
               />
             ))}
             <TouchableOpacity

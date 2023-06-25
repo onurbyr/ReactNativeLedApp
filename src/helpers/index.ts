@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
+import {Alert} from 'react-native';
 
 export const setAsyncStorageData = async (
   storage_Key: string,
@@ -54,4 +55,18 @@ export const convertToRGB = (val: string) => {
         b: parseInt(result[3], 16),
       }
     : null;
+};
+
+export const asyncAlert = (title: string, message: string) => {
+  return new Promise((resolve, reject) => {
+    Alert.alert(
+      title,
+      message,
+      [
+        {text: 'CANCEL', onPress: () => resolve('NO')},
+        {text: 'OK', onPress: () => resolve('YES')},
+      ],
+      {cancelable: false},
+    );
+  });
 };
