@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../constants';
 import {ItemContainer} from '../components';
@@ -12,7 +12,7 @@ import {setStatus} from '../api/requests';
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
 
 const MainScreen = ({navigation}: Props) => {
-  const [brightness, setBrightness] = useState<any>(0);
+  const [brightness, setBrightness] = useState<any>(20);
   const [onOffToggle, setOnOffToggle] = useState<boolean>(false);
 
   return (
@@ -62,11 +62,18 @@ const MainScreen = ({navigation}: Props) => {
           <MaterialIcons name="brightness-high" size={20} color="white" />
         </ItemContainer>
       </View>
-      <View style={styles.section}>
+      <View style={[styles.section, {flex: 1}]}>
         <Text style={styles.sectionText}>Select Saved Colors</Text>
-        <ItemContainer style={styles.savedColorsMainContainer}>
-          <TouchableOpacity style={styles.savedColorsButton}></TouchableOpacity>
-        </ItemContainer>
+        <ScrollView>
+          <ItemContainer style={styles.savedColorsMainContainer}>
+            <TouchableOpacity
+              style={styles.savedColorsButton}></TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.savedColorsButton, styles.addSavedColorButton]}>
+              <MaterialIcons name="add" size={20} color="white" />
+            </TouchableOpacity>
+          </ItemContainer>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -123,14 +130,21 @@ const styles = StyleSheet.create({
   },
   savedColorsMainContainer: {
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 5,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   savedColorsButton: {
-    backgroundColor: 'red',
     width: 30,
     height: 30,
     borderWidth: 1,
     borderColor: '#344055',
     borderRadius: 5,
+    marginRight: 5,
+    marginBottom: 5,
+  },
+  addSavedColorButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
