@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {colors} from '../constants';
 import {ItemContainer} from '../components';
 import {Image, TouchableOpacity} from 'react-native';
@@ -8,12 +8,26 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './Navigator';
 import {setStatus} from '../api/requests';
+import {useFocusEffect} from '@react-navigation/native';
+import {getObjectAsyncStorageData} from '../helpers';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
 
 const MainScreen = ({navigation}: Props) => {
   const [brightness, setBrightness] = useState<any>(20);
   const [onOffToggle, setOnOffToggle] = useState<boolean>(false);
+  const [savedColors, setSavedColors] = useState<Array<string>>([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      handleSavedColors();
+    }, []),
+  );
+
+  const handleSavedColors = async () => {
+    const savedColorsData = await getObjectAsyncStorageData('savedColors');
+    savedColorsData?.length && setSavedColors(savedColorsData);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,8 +80,12 @@ const MainScreen = ({navigation}: Props) => {
         <Text style={styles.sectionText}>Select Saved Colors</Text>
         <ScrollView>
           <ItemContainer style={styles.savedColorsMainContainer}>
-            <TouchableOpacity
-              style={styles.savedColorsButton}></TouchableOpacity>
+            {savedColors.map((item, index) => (
+              <TouchableOpacity
+                style={[styles.savedColorsButton, {backgroundColor: item}]}
+                key={index}
+              />
+            ))}
             <TouchableOpacity
               style={[styles.savedColorsButton, styles.addSavedColorButton]}
               onPress={() =>

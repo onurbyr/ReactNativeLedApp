@@ -8,7 +8,11 @@ import {
 import React, {useState} from 'react';
 import {colors} from '../constants';
 import ColorPicker from 'react-native-wheel-color-picker';
-import {convertToRGB} from '../helpers';
+import {
+  convertToRGB,
+  getObjectAsyncStorageData,
+  setObjectAsyncStorageData,
+} from '../helpers';
 import {setColor} from '../api/requests';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './Navigator';
@@ -16,7 +20,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ColorScreen'>;
 
-const ColorScreen = ({route}: Props) => {
+const ColorScreen = ({navigation, route}: Props) => {
   const [selectedColor, setSelectedColor] = useState<string>('#ffffff');
 
   const onColorChangeComplete = (val: string) => {
@@ -26,6 +30,18 @@ const ColorScreen = ({route}: Props) => {
       setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
     }
   };
+
+  const saveColorToStorage = async () => {
+    let savedColors = await getObjectAsyncStorageData('savedColors');
+    if (savedColors?.length) {
+      savedColors.push(selectedColor);
+    } else {
+      savedColors = [selectedColor];
+    }
+    setObjectAsyncStorageData('savedColors', savedColors);
+    navigation.navigate('MainScreen');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ColorPicker onColorChangeComplete={onColorChangeComplete} />
@@ -36,8 +52,9 @@ const ColorScreen = ({route}: Props) => {
             style={[
               styles.selectedColorButton,
               {backgroundColor: selectedColor},
-            ]}>
-            <MaterialIcons name="check" size={20} color={'white'} />
+            ]}
+            onPress={saveColorToStorage}>
+            <MaterialIcons name="check" size={20} color="black" />
           </TouchableOpacity>
         </View>
       ) : null}

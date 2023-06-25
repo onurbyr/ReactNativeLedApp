@@ -24,6 +24,27 @@ export const getAsyncStorageData = async (storage_Key: string) => {
   }
 };
 
+export const setObjectAsyncStorageData = async (
+  storage_Key: string,
+  value: Array<string | number> | object,
+) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem(storage_Key, jsonValue);
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+export const getObjectAsyncStorageData = async (storage_Key: string) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(storage_Key);
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
 export const convertToRGB = (val: string) => {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(val);
   return result
