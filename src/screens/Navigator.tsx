@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainScreen from './MainScreen';
 import IpAddress from './IpAddress';
-import ColorPicker from './ColorPicker';
+import ColorScreen from './ColorScreen';
 import {getAsyncStorageData} from '../helpers';
 import {LoadingScreen} from '../components';
 import {setAxiosBaseURL} from '../api/axios';
@@ -10,7 +10,7 @@ import {setAxiosBaseURL} from '../api/axios';
 export type RootStackParamList = {
   MainScreen: undefined;
   IpAddress: undefined;
-  ColorPicker: undefined;
+  ColorScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -51,8 +51,8 @@ const Navigator = () => {
         options={{animation: 'slide_from_bottom'}}
       />
       <Stack.Screen
-        name="ColorPicker"
-        component={ColorPicker}
+        name="ColorScreen"
+        component={ColorScreen}
         options={{animation: 'slide_from_bottom'}}
       />
     </Stack.Navigator>

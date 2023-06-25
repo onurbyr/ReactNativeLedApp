@@ -18,7 +18,7 @@ const MainScreen = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topButtons}>
-        <TouchableOpacity onPress={() => navigation.navigate('ColorPicker')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ColorScreen')}>
           <ItemContainer style={styles.colorIpButtonContainer}>
             <Image
               style={styles.colorIpButton}

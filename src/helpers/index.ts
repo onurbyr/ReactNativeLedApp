@@ -23,3 +23,14 @@ export const getAsyncStorageData = async (storage_Key: string) => {
     console.warn(e);
   }
 };
+
+export const convertToRGB = (val: string) => {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(val);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+};

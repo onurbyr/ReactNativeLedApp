@@ -5,3 +5,11 @@ export async function setStatus(value: 'on' | 'off') {
     status: value,
   });
 }
+
+export async function setColor(red: number, green: number, blue: number) {
+  return await get({
+    red: red,
+    green: green,
+    blue,
+  });
+}
