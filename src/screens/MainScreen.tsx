@@ -7,7 +7,11 @@ import {Slider} from '@miblanchard/react-native-slider';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './Navigator';
-import {setStatus, setColor} from '../api/requests';
+import {
+  setStatus,
+  setColor,
+  setBrightness as setBrightnessReq,
+} from '../api/requests';
 import {useFocusEffect} from '@react-navigation/native';
 import {
   getObjectAsyncStorageData,
@@ -57,6 +61,10 @@ const MainScreen = ({navigation}: Props) => {
     setColor(rgbVal?.r!, rgbVal?.g!, rgbVal?.b!);
   };
 
+  const setDeviceBrightness = (value: any) => {
+    setBrightnessReq(value[0]);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topButtons}>
@@ -98,7 +106,9 @@ const MainScreen = ({navigation}: Props) => {
             maximumValue={100}
             step={1}
             value={brightness}
-            onValueChange={value => setBrightness(value)}
+            onValueChange={value => {
+              setBrightness(value), setDeviceBrightness(value);
+            }}
             containerStyle={styles.slider}
           />
           <MaterialIcons name="brightness-high" size={20} color="white" />

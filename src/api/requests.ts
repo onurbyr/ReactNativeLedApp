@@ -13,3 +13,9 @@ export async function setColor(red: number, green: number, blue: number) {
     blue,
   });
 }
+
+export async function setBrightness(value: number) {
+  return await get({
+    brightness: value,
+  });
+}
