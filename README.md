@@ -2,7 +2,8 @@
 
 LedApp with React Native and Arduino
 
-![ledapp](https://github.com/onurbyr/ReactNativeLedApp/assets/61909278/4e5afac9-41a8-4f56-afe2-6a2e72179607)
+![ledapp](https://github.com/onurbyr/ReactNativeLedApp/assets/61909278/c1007e41-17e5-42ee-aba5-f38c0b8741ad)
+
 
 
 ## Installation
